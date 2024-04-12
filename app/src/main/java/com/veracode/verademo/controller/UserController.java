@@ -243,10 +243,11 @@ public class UserController {
 
 			Connection connect = DriverManager.getConnection(Constants.create().getJdbcConnectionString());
 
-			String sql = "SELECT password_hint FROM users WHERE username = '" + username + "'";
+			String sql = "SELECT password_hint FROM users WHERE username = ?";
 			logger.info(sql);
-			Statement statement = connect.createStatement();
-			ResultSet result = statement.executeQuery(sql);
+			PreparedStatement statement = connect.prepareStatement(sql);
+			statement.setString(1, username);
+			ResultSet result = statement.execute();
 			if (result.first()) {
 				String password = result.getString("password_hint");
 				String formatString = "Username '" + username + "' has password: %.2s%s";
@@ -305,9 +306,10 @@ public class UserController {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection connect = DriverManager.getConnection(Constants.create().getJdbcConnectionString());
 
-			String sql = "SELECT username FROM users WHERE username = '" + username + "'";
-			Statement statement = connect.createStatement();
-			ResultSet result = statement.executeQuery(sql);
+			String sql = "SELECT username FROM users WHERE username = ?";
+			PreparedStatement statement = connect.prepareStatement(sql);
+			statement.setString(1, username);
+			ResultSet result = statement.execute();
 			if (result.first()) {
 				model.addAttribute("error", "Username '" + username + "' already exists!");
 				return "register";
