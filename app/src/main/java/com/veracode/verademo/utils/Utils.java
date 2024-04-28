@@ -10,7 +10,7 @@ import org.springframework.http.HttpHeaders;
 
 public class Utils {
 	private static boolean isConnectionFromHttps() {
-		return System.getenv("CONNECTION_FROM_HTTPS") != null && System.getenv("CONNECTION_FROM_HTTPS").equals("1");
+		return System.getenv("CONNECTION_FROM_HTTPS") != null && "1".equals(System.getenv("CONNECTION_FROM_HTTPS"));
 	}
 
 	private static String getVirtualHost() {
