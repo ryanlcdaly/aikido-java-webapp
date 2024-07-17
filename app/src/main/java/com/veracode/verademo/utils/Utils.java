@@ -1,5 +1,6 @@
 package com.veracode.verademo.utils;
 
+import io.github.pixee.security.Newlines;
 import java.util.Collection;
 
 import javax.servlet.http.Cookie;
@@ -39,7 +40,7 @@ public class Utils {
 		for (String header : headers) {
 			// there can be multiple Set-Cookie attributes
 			if (firstHeader) {
-				response.setHeader(HttpHeaders.SET_COOKIE, String.format("%s; SameSite=None; Secure;", header));
+				response.setHeader(HttpHeaders.SET_COOKIE, Newlines.stripAll(String.format("%s; SameSite=None; Secure;", header)));
 				firstHeader = false;
 				continue;
 			}
