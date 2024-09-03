@@ -1,5 +1,6 @@
 package com.veracode.verademo.controller;
 
+import io.github.pixee.security.SystemCommand;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -50,7 +51,7 @@ public class ToolsController {
 
 		try {
 			/* START EXAMPLE VULNERABILITY */
-			proc = Runtime.getRuntime().exec(new String[] { "bash", "-c", "ping -c1 " + host });
+			proc = SystemCommand.runCommand(Runtime.getRuntime(), new String[] { "bash", "-c", "ping -c1 " + host });
 			/* END EXAMPLE VULNERABILITY */
 
 			proc.waitFor(5, TimeUnit.SECONDS);
@@ -80,7 +81,7 @@ public class ToolsController {
 		Process proc;
 		try {
 			/* START EXAMPLE VULNERABILITY */
-			proc = Runtime.getRuntime().exec(new String[] { "bash", "-c", cmd });
+			proc = SystemCommand.runCommand(Runtime.getRuntime(), new String[] { "bash", "-c", cmd });
 			/* END EXAMPLE VULNERABILITY */
 
 			proc.waitFor(5, TimeUnit.SECONDS);
